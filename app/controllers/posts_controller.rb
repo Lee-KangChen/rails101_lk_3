@@ -26,7 +26,17 @@ class PostsController < ApplicationController
 
     if @post.update(post_params)
       redirect_to group_path(@group), notice: "文章修改成功！"
+    else
+      render :edit
     end
+  end
+
+  def destroy
+    @group = Group.find(params[:group_id])
+    @post = @group.posts.find(params[:id])
+
+    @post.destroy
+    redirect_to group_path(@group), alert: "文章已經刪除！"
   end
 
   private
